@@ -1,0 +1,86 @@
+### Project Description: LSB Image Steganography in C
+
+#### Abstract:
+Steganography is the art of hiding communication within non-suspicious content, allowing messages to remain undetected. Unlike cryptography, where the existence of encrypted data is visible but unreadable without the decryption key, steganography hides the very existence of the message itself. Digital images are the most common carriers for steganography due to their widespread use on the internet. The goal of this project is to implement a Least Significant Bit (LSB) image steganography system in C that enables users to hide and retrieve secret messages within BMP image files.
+
+This project uses LSB image steganography to embed a secret message in the least significant bits of an image's pixel data. By modifying only the least significant bit of each pixel, the secret message can be hidden in a way that is imperceptible to the human eye. The system should also offer a functionality to include a "magic string" that can be used to identify whether an image has been altered.
+
+#### Key Features:
+
+1. **Message Size Validation:**
+   - The application will first analyze the image file and the message to ensure that the message can fit inside the image. 
+   - This check will ensure that the data part of the image can accommodate the size of the message without causing corruption or loss of image quality.
+
+2. **Steganography Encoding:**
+   - The application will allow users to hide a secret message inside the image using LSB-based encoding. The secret message could be any arbitrary text file.
+   - An optional "magic string" can be embedded in the image to make it easier to identify whether the image has been altered by the steganography process.
+
+3. **Decryption:**
+   - The application will allow the user to retrieve the hidden message from the BMP image.
+   - The system should correctly handle the process of extracting the hidden message and displaying it to the user.
+
+4. **Command Line Interface:**
+   - The application will be a command-line tool that allows users to perform steganography operations by passing parameters directly through the command line.
+   - The user will input commands and file paths to specify the image file, the text file to be hidden, and any options such as the "magic string".
+
+#### Application Workflow:
+
+1. **Embed Message:**
+   - User provides a BMP image and a text file containing the secret message.
+   - The application checks if the message can fit in the image based on the number of available bits in the image's pixel data.
+   - The user can optionally specify a "magic string" to indicate the presence of hidden data.
+   - The message is then encoded into the least significant bits of the image's pixels, leaving the visual appearance of the image unchanged.
+
+2. **Decrypt Message:**
+   - User provides the stego-image (image with hidden message) and runs a command to extract the hidden message.
+   - The application scans the least significant bits of the image and retrieves the embedded message, providing it as output.
+
+3. **Optional Verification:**
+   - If a magic string was embedded, the application can check the image to confirm if it contains the string, signaling that the image has been altered for steganography purposes.
+
+#### Command Line Options:
+
+- **`-e`** (Encode): Encode a message into the image.
+   - Example: `steghide -e image.bmp message.txt -m "MAGICSTRING"`
+  
+- **`-d`** (Decode): Decode the hidden message from the image.
+   - Example: `steghide -d image_stego.bmp`
+
+- **`-m`** (Magic String): Optionally specify a "magic string" to be embedded within the image as a marker for identification.
+
+#### Input/Output:
+
+- **Input:**
+   - A BMP image file (e.g., `image.bmp`)
+   - A text file containing the secret message (e.g., `message.txt`)
+   - Optionally, a magic string (e.g., `"MAGICSTRING"`) to mark the stego-image.
+  
+- **Output:**
+   - For encoding, the output is a modified BMP image with the hidden message.
+   - For decoding, the output is the extracted secret message.
+
+#### Application Flow Diagram:
+
+1. **Start**:
+   - Check if the correct input files (image and text) are provided.
+   - Validate if the message size is feasible within the image.
+
+2. **Embed Secret Message**:
+   - Modify the least significant bits of the image pixels to hide the secret message.
+   - Optionally embed the "magic string" to mark the stego-image.
+
+3. **Decrypt Message**:
+   - Extract the hidden message by analyzing the LSBs of the image.
+
+4. **Exit**:
+   - The program terminates after successful encoding or decoding.
+
+#### Technical Specifications:
+
+- **Programming Language**: C
+- **Supported Image Format**: BMP (Bitmap)
+- **Algorithm Used**: Least Significant Bit (LSB) Steganography
+- **Input Method**: Command-line arguments
+- **Output Method**: Modified BMP image (for encoding) or the decoded message (for decoding)
+
+This project is useful for learning about steganography techniques and working with image file manipulation at the bit level. It highlights the use of LSB for hiding data and can be easily extended to support other formats and techniques in the future.
